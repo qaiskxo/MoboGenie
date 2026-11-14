@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mobogenie Wallpapers and Ringtones</title>
+<title>Mobogenie</title>
 <style>
 * { -webkit-box-sizing: border-box; box-sizing: border-box; }
 body { margin: 0; font: 12px/1.5 Tahoma, Verdana, Arial, sans-serif; color: #444; background: #e4e7ea; }
@@ -51,16 +51,26 @@ ul { list-style: none; margin: 0; padding: 0; }
 .item .pic { display: block; height: 170px; border: 1px solid #e1e4e7; background: #eef0f2 center no-repeat; background-size: cover; }
 .item .t { margin: 6px 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .msg { clear: both; padding: 30px 10px; text-align: center; color: #888; }
-#pager { clear: both; padding: 10px 8px 14px; text-align: center; border-top: 1px solid #e1e4e7; background: #f7f8f9; }
-#pager a, #pager span { display: inline-block; margin: 2px; padding: 4px 9px; border: 1px solid #d0d5d9; background: #fff; color: #555; }
-#pager span.on { background: #5aa616; border-color: #3f7f0b; color: #fff; font-weight: bold; }
-#pager span.off { color: #bbb; background: #f3f4f5; }
+#pager, #appPager { clear: both; padding: 10px 8px 14px; text-align: center; border-top: 1px solid #e1e4e7; background: #f7f8f9; }
+#pager a, #pager span, #appPager a, #appPager span { display: inline-block; margin: 2px; padding: 4px 9px; border: 1px solid #d0d5d9; background: #fff; color: #555; }
+#pager span.on, #appPager span.on { background: #5aa616; border-color: #3f7f0b; color: #fff; font-weight: bold; }
+#pager span.off, #appPager span.off { color: #bbb; background: #f3f4f5; }
 .note { margin: 10px 12px 0; padding: 7px 10px; background: #fffbe6; border: 1px solid #ecdc8a; color: #7a6a1b; font-size: 11px; }
 .rt { padding: 8px 10px; border-bottom: 1px solid #e8ebed; }
 .rt .th { float: left; width: 88px; height: 50px; margin-right: 10px; background: #2f3438 center no-repeat; background-size: cover; border: 1px solid #c9ced2; }
 .rt .inf { overflow: hidden; }
 .rt .tt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; font-weight: bold; }
 .rt .mt { color: #888; font-size: 11px; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg:empty { display: none; }
+.app { padding: 10px; border-bottom: 1px solid #e8ebed; }
+.app .ic { float: left; width: 56px; height: 56px; margin-right: 10px; border: 1px solid #d7dbde; border-radius: 10px; background: #eef0f2 center no-repeat; background-size: contain; }
+.app .inf { overflow: hidden; }
+.app .tt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; font-weight: bold; font-size: 13px; }
+.app .mt { color: #888; font-size: 11px; margin-bottom: 5px; }
+.app .more { clear: both; margin-top: 8px; padding: 8px; background: #f7f8f9; border: 1px solid #e1e4e7; }
+.app .desc { white-space: pre-wrap; max-height: 200px; overflow: auto; margin-bottom: 6px; word-wrap: break-word; }
+.app .more .bnr { height: 110px; margin-bottom: 8px; border: 1px solid #c9ced2; background: #2f3438 center no-repeat; background-size: cover; }
+.app .more img { height: 120px; margin: 4px 4px 0 0; border: 1px solid #c9ced2; vertical-align: top; }
 #foot { max-width: 960px; margin: 0 auto 20px; padding: 12px 8px; text-align: center; color: #8a9096; font-size: 11px; border-top: 1px solid #cdd2d6; }
 #lb { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 50; background: rgba(0,0,0,.75); overflow: auto; padding: 10px; }
 #lb[hidden] { display: none; }
@@ -86,13 +96,18 @@ ul { list-style: none; margin: 0; padding: 0; }
   <form class="search" id="searchForm"><input type="text" id="q" placeholder="Search wallpapers..."><button type="submit">Search</button></form>
 </div></div>
 <div id="nav"><ul>
-  <li id="tabW" class="on"><a href="#">Wallpapers</a></li><li id="tabR"><a href="#">Ringtones</a></li>
+  <li id="tabW" class="on"><a href="#">Wallpapers</a></li><li id="tabA"><a href="#">Apps</a></li><li id="tabR"><a href="#">Ringtones</a></li>
 </ul></div>
 
 <div id="page" class="cf">
   <div id="side">
     <div class="box" id="sideW"><h3>Categories</h3><ul id="sideCat"></ul></div>
     <div class="box" id="sideR" style="display:none"><h3>Quick search</h3><ul id="sideQuick"></ul></div>
+    <div id="sideA" style="display:none">
+      <div class="box"><h3>Store</h3><ul id="sideStore"></ul></div>
+      <div class="box"><h3>Featured</h3><ul id="sideFeat"></ul></div>
+      <div class="box"><h3>Filter</h3><ul><li id="compat" class="on"><a href="#">Works on Android 4.4</a></li></ul></div>
+    </div>
   </div>
   <div id="main">
     <div id="viewW">
@@ -103,6 +118,14 @@ ul { list-style: none; margin: 0; padding: 0; }
       </div>
       <div id="gallery" class="cf"><div class="msg">Loading wallpapers...</div></div>
       <div id="pager"></div>
+    </div>
+    <div id="viewA" style="display:none">
+      <div class="crumb"><a href="#">Store</a> &gt; <span id="appCrumb">Apps</span></div>
+      <div class="slider" id="bnBox" style="display:none"><div id="bnSlides"></div><div class="cap" id="bnCap">Featured</div><div class="dots" id="bnDots"></div></div>
+      <div class="bar cf"><h1 id="appTitle">Apps</h1></div>
+      <ul id="appList"></ul>
+      <div class="msg" id="appMsg"></div>
+      <div id="appPager"></div>
     </div>
     <div id="viewR" style="display:none">
       <div class="crumb"><a href="#">Ringtones</a> &gt; <span id="rtCrumb">Search</span></div>
@@ -146,17 +169,37 @@ function el(tag, cls, text) {
 function bg(e, url) { e.style.backgroundImage = 'url("' + url + '")'; }
 function trim(s) { return String(s).replace(/^\s+|\s+$/g, ''); }
 function each(list, fn) { for (var i = 0; i < list.length; i++) fn(list[i], i); }
-function xhr(url, ok, fail) {
-  var r = new XMLHttpRequest(), fin = false;
-  function end(good, data) { if (fin) return; fin = true; if (good) ok(data); else fail(); }
+/* Your own proxy for market.lyano.ovh, e.g. 'https://your-worker.workers.dev/?url='. When set, it is the only route used.
+   When empty, the market is called directly and, if the browser blocks that (CORS), the public proxies below are tried. */
+var PROXY = '';
+var PROXIES = ['https://api.allorigins.win/raw?url=', 'https://corsproxy.io/?url=', 'https://api.codetabs.com/v1/proxy?quest='];
+var viaProxy = -2; /* -2 untested, -1 direct works, 0.. index of the public proxy that worked */
+function xhr(url, ok, fail, ms) {
+  if (url.indexOf('https://market.lyano.ovh/') !== 0) return xhr1(url, ok, fail, ms);
+  var enc = encodeURIComponent(url), tries = [];
+  if (PROXY) tries.push([PROXY + enc, 'own']);
+  else {
+    if (viaProxy >= 0) tries.push([PROXIES[viaProxy] + enc, viaProxy]);
+    else tries.push([url, -1]);
+    each(PROXIES, function (p, i) { if (i !== viaProxy) tries.push([p + enc, i]); });
+  }
+  (function next(n, why) {
+    if (n >= tries.length) return fail(why);
+    xhr1(tries[n][0], function (d) { if (!PROXY) viaProxy = tries[n][1]; ok(d); }, function (w) { next(n + 1, why || w); }, ms);
+  })(0);
+}
+function xhr1(url, ok, fail, ms) {
+  var r = new XMLHttpRequest(), fin = false, t0 = new Date().getTime(), limit = ms || 8000;
+  function end(good, data, why) { if (fin) return; fin = true; if (good) ok(data); else fail(why); }
   r.open('GET', url, true);
-  r.timeout = 8000;
+  r.timeout = limit;
   r.onreadystatechange = function () {
     if (r.readyState !== 4) return;
-    if (r.status === 200) { var d; try { d = JSON.parse(r.responseText); } catch (e) { return end(false); } end(true, d); }
-    else end(false);
+    if (r.status === 200) { var d; try { d = JSON.parse(r.responseText); } catch (e) { return end(false, 0, 'the reply was not valid JSON'); } end(true, d); }
+    else if (r.status === 0) end(false, 0, new Date().getTime() - t0 >= limit - 500 ? 'the request timed out' : 'the request was blocked (CORS, certificate or no network)');
+    else end(false, 0, 'the server answered ' + r.status);
   };
-  r.ontimeout = function () { end(false); };
+  r.ontimeout = function () { end(false, 0, 'the request timed out'); };
   r.send();
 }
 
@@ -364,22 +407,193 @@ each(QUICK, function (term) {
   li.appendChild(a); $('sideQuick').appendChild(li);
 });
 
+/* ---------- apps and games (market.lyano.ovh) ---------- */
+var MARKET = 'https://market.lyano.ovh';
+var ANDROID = ['Any', '1.0', '1.1', '1.5', '1.6', '2.0', '2.0.1', '2.1', '2.2', '2.3', '2.3.3', '3.0', '3.1', '3.2', '4.0', '4.0.3', '4.1', '4.2', '4.3', '4.4', '4.4W', '5.0', '5.1', '6.0', '7.0', '7.1', '8.0', '8.1', '9', '10', '11', '12', '12L', '13', '14'];
+var appCat = 'apps', appPage = 1, appTerm = '', appCompat = true, appPer = 40, appLoaded = false, appSeq = 0;
+var curCat = null;
+
+function andName(n) { return n > 0 && ANDROID[n] ? 'Android ' + ANDROID[n] + '+' : 'Any Android'; }
+function appStatus(t) { $('appMsg').textContent = t; }
+function appUrl() {
+  var p = [];
+  if (appTerm) p.push('search=' + encodeURIComponent(appTerm));
+  else if (appCat === 'apps') p.push('=apps');
+  else if (appCat === 'games') p.push('=games');
+  if (appPage > 1) p.push('page=' + appPage);
+  return MARKET + '/api/repo.php' + (p.length ? '?' + p.join('&') : '');
+}
+/* the server may ignore the apps/games switch, so type and Android version are also checked here */
+function keepApp(a, anyType) {
+  if (!anyType && !appTerm && appCat !== 'all' && a.type !== (appCat === 'games' ? 'game' : 'app')) return false;
+  if (appCompat && a.min_sdk > 19) return false;
+  return true;
+}
+function loadApps() {
+  var seq = ++appSeq, list = $('appList');
+  curCat = null;
+  list.innerHTML = ''; $('appPager').innerHTML = ''; appStatus('Loading...');
+  var title = appTerm ? 'Search' : appCat === 'games' ? 'Games' : appCat === 'all' ? 'Apps and Games' : 'Apps';
+  $('appTitle').textContent = title;
+  var reqUrl = appUrl();
+  xhr(reqUrl, function (d) {
+    if (seq !== appSeq) return;
+    var m = d.metadata || {}, raw = d.apps || [], items = [];
+    each(raw, function (a) { if (keepApp(a)) items.push(a); });
+    var total = m.total_items || raw.length, pageNow = m.page || appPage;
+    if (appPage === 1 && raw.length && raw.length < total) appPer = raw.length;
+    appLoaded = true;
+    $('appCrumb').textContent = title + ' (' + total + ')' + (appTerm ? ' \u2022 ' + appTerm : '');
+    each(items, function (a) { list.appendChild(appRow(a)); });
+    if (appPage > 1 && pageNow !== appPage) { appStatus('This server does not support paging.'); return; }
+    appStatus(items.length ? '' : (appTerm ? 'No apps found.' : 'Nothing to show on this page.'));
+    appPager(pageNow, Math.ceil(total / appPer));
+  }, function (why) { if (seq === appSeq) appStatus('Could not load the list: ' + why + '. (' + reqUrl + ') Tap the Apps tab to retry.'); }, 20000);
+}
+/* banner slider: /banners/<package>.jpg for every featured package, only the ones that exist are shown */
+var bnEls = [], bnDots = [], bnIdx = 0, bnTimer;
+function buildBanners(cats) {
+  var seen = {}, ids = [];
+  each(cats, function (c) { each(c.packages || [], function (id) { if (!seen[id]) { seen[id] = 1; ids.push(id); } }); });
+  each(ids, function (id) {
+    var url = MARKET + '/banners/' + id + '.jpg', im = new Image();
+    im.onload = function () { addBanner(id, url); };
+    im.src = url;
+  });
+}
+function addBanner(id, url) {
+  var i = bnEls.length, s = el('div', 'sl'), d = el('a', '', String(i + 1));
+  bg(s, url);
+  s.onclick = function () { loadCat({ title: 'Featured', packages: [id] }); };
+  d.href = '#'; d.onclick = function (e) { e.preventDefault(); showBanner(i); startBanners(); };
+  $('bnSlides').appendChild(s); $('bnDots').appendChild(d);
+  bnEls.push(s); bnDots.push(d);
+  if (i === 0) { $('bnBox').style.display = 'block'; showBanner(0); startBanners(); }
+}
+function showBanner(i) {
+  bnIdx = i;
+  each(bnEls, function (s, k) { s.className = k === i ? 'sl on' : 'sl'; });
+  each(bnDots, function (d, k) { d.className = k === i ? 'on' : ''; });
+}
+function startBanners() {
+  clearInterval(bnTimer);
+  if (bnEls.length > 1) bnTimer = setInterval(function () { showBanner((bnIdx + 1) % bnEls.length); }, 4500);
+}
+
+/* featured groups from categories_home.json: each package is fetched with ?package= */
+function loadCat(c) {
+  curCat = c;
+  var seq = ++appSeq, list = $('appList'), got = [], left = c.packages.length;
+  list.innerHTML = ''; $('appPager').innerHTML = ''; appStatus('Loading...');
+  $('appTitle').textContent = c.title; $('appCrumb').textContent = c.title;
+  function fin() {
+    if (--left || seq !== appSeq) return;
+    var n = 0;
+    each(got, function (a) { if (a && keepApp(a, true)) { list.appendChild(appRow(a)); n++; } });
+    appStatus(n ? '' : 'Could not load these apps.');
+  }
+  each(c.packages, function (id, i) {
+    xhr(MARKET + '/api/repo.php?package=' + encodeURIComponent(id), function (d) {
+      got[i] = d && ((d.apps && d.apps[0]) || d.app || (d.package_name ? d : null));
+      fin();
+    }, fin, 20000);
+  });
+}
+function appPager(cur, pages) {
+  var p = $('appPager'); p.innerHTML = '';
+  if (pages < 2) return;
+  function add(label, n, cls) {
+    var e;
+    if (cls) e = el('span', cls, label);
+    else { e = el('a', '', label); e.href = '#'; e.onclick = function (ev) { ev.preventDefault(); appPage = n; loadApps(); window.scrollTo(0, 0); }; }
+    p.appendChild(e);
+  }
+  add('< Prev', cur - 1, cur === 1 ? 'off' : '');
+  var from = Math.max(1, cur - 2), to = Math.min(pages, cur + 2);
+  if (from > 1) { add('1', 1, ''); if (from > 2) add('...', 0, 'off'); }
+  for (var n = from; n <= to; n++) add(String(n), n, n === cur ? 'on' : '');
+  if (to < pages) { if (to < pages - 1) add('...', 0, 'off'); add(String(pages), pages, ''); }
+  add('Next >', cur + 1, cur === pages ? 'off' : '');
+}
+function appRow(a) {
+  var li = el('li', 'app cf'), ic = el('div', 'ic'), inf = el('div', 'inf');
+  bg(ic, a.icon ? MARKET + a.icon : MARKET + '/icons/' + a.package_name + '.png');
+  var dev = a.developer && a.developer !== 'Unknown' ? a.developer + ' \u2022 ' : '';
+  inf.appendChild(el('div', 'tt', a.name));
+  inf.appendChild(el('div', 'mt', dev + (a.version ? 'v' + a.version + ' \u2022 ' : '') + andName(a.min_sdk)));
+  var dl = el('a', 'btn sm', 'Download'); dl.href = MARKET + a.apk; dl.target = '_blank';
+  var more = el('a', 'btn sm gray', 'Details'); more.href = '#';
+  var panel = el('div', 'more'), built = false;
+  panel.style.display = 'none';
+  more.onclick = function (e) {
+    e.preventDefault();
+    var open = panel.style.display === 'none';
+    if (open && !built) { built = true; fillPanel(panel, a); }
+    panel.style.display = open ? 'block' : 'none';
+  };
+  inf.appendChild(dl); inf.appendChild(more);
+  li.appendChild(ic); li.appendChild(inf); li.appendChild(panel);
+  return li;
+}
+function fillPanel(panel, a) {
+  if (a.banner) { var bn = el('div', 'bnr'); bg(bn, MARKET + a.banner); panel.appendChild(bn); }
+  if (a.description) panel.appendChild(el('div', 'desc', a.description));
+  var bits = [a.package_name];
+  if (a.arch && a.arch.length) bits.push(a.arch.join(', '));
+  if (a.added_date) bits.push('Added ' + a.added_date.slice(0, 10));
+  panel.appendChild(el('div', 'mt', bits.join(' \u2022 ')));
+  each(a.screenshots || [], function (sh, i) {
+    if (i < 4) { var im = el('img'); im.src = MARKET + sh; im.alt = ''; panel.appendChild(im); }
+  });
+}
+(function () {
+  var lists = [$('sideStore'), $('sideFeat')];
+  function mark(li) {
+    each(lists, function (ul) { each(ul.getElementsByTagName('li'), function (x) { x.className = x === li ? 'on' : ''; }); });
+  }
+  each([['apps', 'Apps'], ['games', 'Games'], ['all', 'All']], function (c) {
+    var li = el('li', c[0] === appCat ? 'on' : ''), a = el('a', '', c[1]); a.href = '#';
+    a.onclick = function (e) { e.preventDefault(); appCat = c[0]; appTerm = ''; appPage = 1; mark(li); loadApps(); };
+    li.appendChild(a); $('sideStore').appendChild(li);
+  });
+  xhr(MARKET + '/api/categories_home.json', function (d) {
+    buildBanners((d && d.categories) || []);
+    each((d && d.categories) || [], function (c) {
+      var li = el('li'), a = el('a', '', c.title); a.href = '#';
+      a.onclick = function (e) { e.preventDefault(); mark(li); loadCat(c); };
+      li.appendChild(a); $('sideFeat').appendChild(li);
+    });
+  }, function () {}, 20000);
+  $('compat').firstChild.onclick = function (e) {
+    e.preventDefault(); appCompat = !appCompat;
+    $('compat').className = appCompat ? 'on' : ''; appPage = 1;
+    if (curCat) loadCat(curCat); else loadApps();
+  };
+})();
+
 /* ---------- tabs and search ---------- */
 function showTab(t) {
   tab = t;
-  $('tabW').className = t === 'W' ? 'on' : ''; $('tabR').className = t === 'R' ? 'on' : '';
-  $('viewW').style.display = t === 'W' ? 'block' : 'none'; $('sideW').style.display = t === 'W' ? 'block' : 'none';
-  $('viewR').style.display = t === 'R' ? 'block' : 'none'; $('sideR').style.display = t === 'R' ? 'block' : 'none';
-  q.placeholder = t === 'W' ? 'Search wallpapers...' : 'Search ringtones...';
+  each(['W', 'A', 'R'], function (k) {
+    $('tab' + k).className = t === k ? 'on' : '';
+    $('view' + k).style.display = t === k ? 'block' : 'none';
+    $('side' + k).style.display = t === k ? 'block' : 'none';
+  });
+  q.placeholder = 'Search ' + (t === 'W' ? 'wallpapers' : t === 'A' ? 'apps' : 'ringtones') + '...';
   q.value = '';
-  if (t === 'W') { stopAudio(); apply(); }
+  if (t !== 'R') stopAudio();
+  if (t === 'W') apply();
+  else if (t === 'A') { if (!appLoaded || appTerm) { appTerm = ''; appPage = 1; loadApps(); } }
   else if (!$('rtList').firstChild) searchRT('ringtone');
 }
-$('tabW').firstChild.onclick = function (e) { e.preventDefault(); showTab('W'); };
-$('tabR').firstChild.onclick = function (e) { e.preventDefault(); showTab('R'); };
+each(['W', 'A', 'R'], function (k) {
+  $('tab' + k).firstChild.onclick = function (e) { e.preventDefault(); showTab(k); };
+});
 $('searchForm').onsubmit = function (e) {
   e.preventDefault();
-  if (tab === 'W') apply(); else searchRT(q.value);
+  if (tab === 'W') apply();
+  else if (tab === 'A') { appTerm = trim(q.value); appPage = 1; loadApps(); }
+  else searchRT(q.value);
   return false;
 };
 })();
