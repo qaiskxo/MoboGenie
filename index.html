@@ -1,102 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobogenie Wallpapers</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f2f6;
-            color: #333333;
-            margin: 0;
-            padding: 10px;
-        }
-        h1 {
-            font-size: 1.3rem;
-            color: #0084ff;
-            margin: 10px 0 20px 5px;
-            font-weight: bold;
-            border-bottom: 2px solid #0084ff;
-            padding-bottom: 5px;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 10px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .card {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-            padding: 5px;
-            display: flex;
-            flex-direction: column;
-        }
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-            border-radius: 2px;
-            background-color: #f7f7f7;
-        }
-        .card-details {
-            padding: 6px 2px 2px 2px;
-            text-align: left;
-        }
-        .card-title {
-            margin: 0;
-            font-size: 0.85rem;
-            font-weight: normal;
-            color: #444444;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobogenie Wallpapers</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font: 12px/1.5 Tahoma, Verdana, Arial, sans-serif;
+    color: #444;
+    background: #e4e7ea;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.35) 0 1px, transparent 1px 4px);
+}
+a { color: #3a8d0f; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* header */
+#top { background: #2f3438; border-bottom: 1px solid #1c1f22; }
+#top .in { max-width: 960px; margin: 0 auto; height: 34px; padding: 0 10px; display: flex; align-items: center; justify-content: flex-end; gap: 14px; font-size: 11px; }
+#top a { color: #b9c0c6; }
+#head {
+    background: linear-gradient(#8bd23a, #5aa616);
+    border-bottom: 1px solid #3f7f0b;
+    box-shadow: 0 1px 0 rgba(255,255,255,.4) inset;
+}
+#head .in { max-width: 960px; margin: 0 auto; padding: 12px 10px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.logo {
+    font: italic bold 28px/1 "Trebuchet MS", Verdana, sans-serif;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.35), 0 2px 0 rgba(0,0,0,.12);
+    letter-spacing: -1px;
+}
+.logo:hover { text-decoration: none; }
+.logo small { font-size: 11px; font-style: normal; letter-spacing: 0; margin-left: 6px; opacity: .9; }
+.search { margin-left: auto; display: flex; }
+.search input {
+    width: 220px; height: 26px; padding: 3px 8px;
+    border: 1px solid #3f7f0b; border-right: 0; border-radius: 3px 0 0 3px;
+    font: 12px Tahoma, Verdana, Arial, sans-serif; color: #555;
+    box-shadow: 0 1px 2px rgba(0,0,0,.25) inset;
+}
+.search button {
+    height: 26px; padding: 0 12px;
+    border: 1px solid #2f6a08; border-radius: 0 3px 3px 0;
+    background: linear-gradient(#78bf2a, #4a9610); color: #fff;
+    font: bold 12px Tahoma, Verdana, Arial, sans-serif; text-shadow: 0 -1px 0 rgba(0,0,0,.3); cursor: pointer;
+}
+
+/* nav tabs */
+#nav { background: #f3f4f5; border-bottom: 1px solid #c9ced2; }
+#nav ul { max-width: 960px; margin: 0 auto; padding: 0 10px; list-style: none; display: flex; flex-wrap: wrap; }
+#nav li a {
+    display: block; padding: 8px 16px; color: #555; font-weight: bold; border-right: 1px solid #dfe2e5;
+}
+#nav li a:hover { background: #fff; text-decoration: none; color: #3a8d0f; }
+#nav li.on a { background: #fff; color: #3a8d0f; box-shadow: 0 -3px 0 #5aa616 inset; margin-bottom: -1px; padding-bottom: 9px; }
+
+/* page */
+#page { max-width: 960px; margin: 12px auto; padding: 0 10px; display: flex; gap: 12px; align-items: flex-start; }
+#side { width: 180px; flex: none; }
+#main { flex: 1; min-width: 0; background: #fff; border: 1px solid #cfd4d8; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+
+.box { background: #fff; border: 1px solid #cfd4d8; margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.box h3 {
+    margin: 0; padding: 7px 10px; font-size: 12px; color: #fff;
+    background: linear-gradient(#7cc231, #559f13); border-bottom: 1px solid #3f7f0b; text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+}
+.box ul { list-style: none; margin: 0; padding: 0; }
+.box li a { display: block; padding: 7px 10px; border-bottom: 1px dotted #d7dbde; color: #555; }
+.box li:last-child a { border-bottom: 0; }
+.box li a:hover { background: #f1f8e8; text-decoration: none; color: #3a8d0f; }
+.box li.on a { background: #eaf5db; color: #3a8d0f; font-weight: bold; }
+.promo { padding: 10px; text-align: center; color: #666; }
+.promo b { display: block; color: #3a8d0f; font-size: 13px; margin-bottom: 6px; }
+.btn {
+    display: inline-block; padding: 5px 14px; border: 1px solid #3f7f0b; border-radius: 3px;
+    background: linear-gradient(#86cc3a, #4f9c10); color: #fff; font-weight: bold; text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+    box-shadow: 0 1px 0 rgba(255,255,255,.4) inset;
+}
+.btn:hover { background: linear-gradient(#92d646, #58a818); text-decoration: none; }
+
+/* main */
+.crumb { padding: 8px 12px; background: #f7f8f9; border-bottom: 1px solid #e1e4e7; color: #888; font-size: 11px; }
+.bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px 0; border-bottom: 2px solid #5aa616; flex-wrap: wrap; gap: 4px; }
+.bar h1 { margin: 0 0 -2px; font-size: 15px; color: #3a8d0f; padding-bottom: 7px; }
+.sort { display: flex; gap: 2px; margin-bottom: -2px; }
+.sort a {
+    padding: 4px 12px; border: 1px solid #d7dbde; border-bottom: 0; border-radius: 3px 3px 0 0;
+    background: #f3f4f5; color: #666;
+}
+.sort a.on { background: #5aa616; border-color: #5aa616; color: #fff; font-weight: bold; }
+.sort a:hover { text-decoration: none; }
+
+#gallery { list-style: none; margin: 0; padding: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.item { border: 1px solid #d7dbde; background: #fafbfb; padding: 5px; text-align: center; }
+.item:hover { border-color: #5aa616; background: #fff; box-shadow: 0 0 4px rgba(90,166,22,.5); }
+.item .pic { display: block; border: 1px solid #e1e4e7; background: #eef0f2; }
+.item img { display: block; width: 100%; height: 200px; object-fit: cover; }
+.item .t { margin: 6px 0 5px; font-size: 12px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item .btn { padding: 2px 12px; font-size: 11px; }
+.msg { grid-column: 1 / -1; padding: 30px 0; text-align: center; color: #888; }
+
+#pager { padding: 10px 12px 14px; text-align: center; border-top: 1px solid #e1e4e7; background: #f7f8f9; }
+#pager a, #pager span {
+    display: inline-block; min-width: 24px; margin: 0 2px; padding: 3px 7px; border: 1px solid #d0d5d9; background: #fff; color: #555;
+}
+#pager a:hover { border-color: #5aa616; color: #3a8d0f; text-decoration: none; }
+#pager span.on { background: #5aa616; border-color: #3f7f0b; color: #fff; font-weight: bold; }
+#pager span.off { color: #bbb; background: #f3f4f5; }
+
+#foot { max-width: 960px; margin: 0 auto 20px; padding: 12px 10px; text-align: center; color: #8a9096; font-size: 11px; border-top: 1px solid #cdd2d6; }
+
+@media (max-width: 700px) {
+    #page { flex-direction: column; }
+    #side { width: 100%; }
+    .search { margin-left: 0; width: 100%; }
+    .search input { flex: 1; width: auto; }
+    #nav li a { padding: 8px 10px; }
+}
+</style>
 </head>
 <body>
 
-    <h1>Mobogenie Wallpapers</h1>
+<div id="top"><div class="in"><a href="#">Sign in</a><a href="#">Help</a><a href="#">English</a></div></div>
+
+<div id="head"><div class="in">
+    <a class="logo" href="#">Mobogenie<small>Your Android Genie</small></a>
+    <form class="search" id="searchForm">
+        <input type="text" id="q" placeholder="Search wallpapers...">
+        <button type="submit">Search</button>
+    </form>
+</div></div>
+
+<div id="nav"><ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Apps</a></li>
+    <li><a href="#">Games</a></li>
+    <li class="on"><a href="#">Wallpapers</a></li>
+    <li><a href="#">Ringtones</a></li>
+    <li><a href="#">Videos</a></li>
+</ul></div>
+
+<div id="page">
+    <div id="side">
+        <div class="box">
+            <h3>Wallpapers</h3>
+            <ul id="sideSort">
+                <li class="on" id="sideHot"><a href="#" data-sort="hot">Most Popular</a></li>
+                <li id="sideNew"><a href="#" data-sort="new">Latest Added</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <div class="promo"><b>Get Mobogenie</b>Free apps, games and wallpapers for your phone.<br><br><a class="btn" href="#">Download</a></div>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="crumb"><a href="#">Home</a> &gt; <a href="#">Wallpapers</a> &gt; <span id="crumbCount">All</span></div>
+        <div class="bar">
+            <h1>Mobogenie Wallpapers</h1>
+            <div class="sort" id="tabSort">
+                <a href="#" data-sort="hot" class="on" id="tabHot">Hot</a>
+                <a href="#" data-sort="new" id="tabNew">New</a>
+            </div>
+        </div>
+        <ul id="gallery"><li class="msg">Loading wallpapers...</li></ul>
+        <div id="pager"></div>
+    </div>
+</div>
+
+<div id="foot">Copyright &copy; 2014 Mobogenie. All rights reserved. &nbsp;|&nbsp; <a href="#">About Us</a> &nbsp;|&nbsp; <a href="#">Terms of Use</a> &nbsp;|&nbsp; <a href="#">Privacy Policy</a></div>
+
+<script>
+let allItems = [];
+let currentItems = [];
+let currentPage = 1;
+const itemsPerPage = 12;
+let currentSort = 'hot';
+let searchQuery = '';
+
+// Load data directly from your working repository path
+fetch('https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json')
+    .then(res => {
+        if (!res.ok) throw new Error('Failed to load JSON');
+        return res.json();
+    })
+    .then(data => {
+        allItems = data;
+        processAndRender();
+    })
+    .catch(err => {
+        console.error(err);
+        document.getElementById('gallery').innerHTML = '<li class="msg">Failed to load asset index.</li>';
+    });
+
+function processAndRender() {
+    // Filter by search query if present
+    if (searchQuery) {
+        currentItems = allItems.filter(item => 
+            item.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    } else {
+        currentItems = [...allItems];
+    }
+
+    // Sort order logic
+    if (currentSort === 'new') {
+        // Reverse array sequence for 'New'
+        currentItems.reverse();
+    } else {
+        // Natural layout matching order for 'Hot'
+        currentItems.sort((a, b) => {
+            let numA = parseInt(a.id.replace('wp_', '')) || 0;
+            let numB = parseInt(b.id.replace('wp_', '')) || 0;
+            return numA - numB;
+        });
+    }
+
+    currentPage = 1;
+    renderGallery();
+}
+
+function renderGallery() {
+    const gallery = document.getElementById('gallery');
+    const crumbCount = document.getElementById('crumbCount');
     
-    <div id="gallery" class="gallery-grid"></div>
-
-    <script>
-        // Loops through your complete JSON file from the target directory branch layout
-        fetch('https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network failure');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const gallery = document.getElementById('gallery');
-                
-                data.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-
-                    const cleanUrl = item.url.trim();
-
-                    card.innerHTML = `
-                        <a href="${cleanUrl}" target="_blank">
-                            <img src="${cleanUrl}" alt="${item.title.trim()}" loading="lazy">
-                        </a>
-                        <div class="card-details">
-                            <h3 class="card-title">${item.title.trim()}</h3>
-                        </div>
-                    `;
-                    gallery.appendChild(card);
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    </script>
-</body>
-</html>
+    if (searchQuery) {
+        crumbCount.innerHTML = `Search: "${searchQuery}" (${currentItems.length})`;
+    } else {
