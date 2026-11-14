@@ -3,105 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallpaper Gallery</title>
+    <title>Mobogenie Wallpapers</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0f0f14;
-            color: #ffffff;
+            font-family: Arial, sans-serif;
+            background-color: #f1f2f6;
+            color: #333333;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
         }
         h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            font-size: 1.3rem;
+            color: #0084ff;
+            margin: 10px 0 20px 5px;
+            font-weight: bold;
+            border-bottom: 2px solid #0084ff;
+            padding-bottom: 5px;
         }
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         .card {
-            background-color: #1a1a24;
-            border-radius: 12px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
         }
         .card img {
             width: 100%;
-            height: 380px;
+            height: 180px;
             object-fit: cover;
             display: block;
-            background-color: #252538;
+            border-radius: 2px;
+            background-color: #f7f7f7;
         }
         .card-details {
-            padding: 15px;
-            text-align: center;
+            padding: 6px 2px 2px 2px;
+            text-align: left;
         }
         .card-title {
             margin: 0;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-        .loading {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #8a8a9e;
-            margin-top: 50px;
+            font-size: 0.85rem;
+            font-weight: normal;
+            color: #444444;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
 </head>
 <body>
 
-    <h1>Mobogenie Pics</h1>
+    <h1>Mobogenie Wallpapers</h1>
     
-    <div id="loading-text" class="loading">Loading wallpapers...</div>
     <div id="gallery" class="gallery-grid"></div>
 
     <script>
-        // Fetches directly from your raw GitHub JSON URL to prevent connection blocks
+        // Loops through your complete JSON file from the target directory branch layout
         fetch('https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json')
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response failure');
+                    throw new Error('Network failure');
                 }
                 return response.json();
             })
             .then(data => {
                 const gallery = document.getElementById('gallery');
-                const loadingText = document.getElementById('loading-text');
                 
-                // Hide the loading message
-                loadingText.style.display = 'none';
-
-                // Loop through your 38 live wallpaper assets
                 data.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'card';
 
+                    const cleanUrl = item.url.trim();
+
                     card.innerHTML = `
-                        <a href="${item.url}" target="_blank">
-                            <img src="${item.url}" alt="${item.title}" loading="lazy">
+                        <a href="${cleanUrl}" target="_blank">
+                            <img src="${cleanUrl}" alt="${item.title.trim()}" loading="lazy">
                         </a>
                         <div class="card-details">
-                            <h3 class="card-title">${item.title}</h3>
+                            <h3 class="card-title">${item.title.trim()}</h3>
                         </div>
                     `;
                     gallery.appendChild(card);
                 });
             })
             .catch(error => {
-                console.error('Error loading wallpapers:', error);
-                document.getElementById('loading-text').innerText = 'Failed to load wallpapers.';
+                console.error('Error:', error);
             });
     </script>
 </body>
