@@ -68,6 +68,7 @@
     <div id="gallery" class="gallery-grid"></div>
 
     <script>
+        // Fetch data from your static GitHub API endpoint
         fetch('https://github.io')
             .then(response => {
                 if (!response.ok) {
@@ -79,8 +80,10 @@
                 const gallery = document.getElementById('gallery');
                 const loadingText = document.getElementById('loading-text');
                 
+                // Hide the loading message
                 loadingText.style.display = 'none';
 
+                // Loop through the 38 wallpapers and generate HTML cards
                 data.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'card';
