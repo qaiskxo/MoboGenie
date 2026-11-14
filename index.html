@@ -87,12 +87,15 @@
                     const card = document.createElement('div');
                     card.className = 'card';
 
+                    // Trim any accidental leading spaces from the URL string
+                    const cleanUrl = item.url.trim();
+
                     card.innerHTML = `
-                        <a href="${item.url}" target="_blank">
-                            <img src="${item.url}" alt="${item.title}" loading="lazy">
+                        <a href="${cleanUrl}" target="_blank">
+                            <img src="${cleanUrl}" alt="${item.title.trim()}" loading="lazy">
                         </a>
                         <div class="card-details">
-                            <h3 class="card-title">${item.title}</h3>
+                            <h3 class="card-title">${item.title.trim()}</h3>
                         </div>
                     `;
                     gallery.appendChild(card);
