@@ -3,416 +3,386 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mobogenie Wallpapers</title>
+<title>Mobogenie Wallpapers and Ringtones</title>
 <style>
-* { box-sizing: border-box; }
-body {
-    margin: 0;
-    font: 12px/1.5 Tahoma, Verdana, Arial, sans-serif;
-    color: #444;
-    background: #e4e7ea;
-    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.35) 0 1px, transparent 1px 4px);
-}
+* { -webkit-box-sizing: border-box; box-sizing: border-box; }
+body { margin: 0; font: 12px/1.5 Tahoma, Verdana, Arial, sans-serif; color: #444; background: #e4e7ea; }
 a { color: #3a8d0f; text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-/* header */
-#top { background: #2f3438; border-bottom: 1px solid #1c1f22; }
-#top .in { max-width: 960px; margin: 0 auto; height: 34px; padding: 0 10px; display: flex; align-items: center; justify-content: flex-end; gap: 14px; font-size: 11px; }
-#top a { color: #b9c0c6; }
-#head {
-    background: linear-gradient(#8bd23a, #5aa616);
-    border-bottom: 1px solid #3f7f0b;
-    box-shadow: 0 1px 0 rgba(255,255,255,.4) inset;
-}
-#head .in { max-width: 960px; margin: 0 auto; padding: 12px 10px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.logo {
-    font: italic bold 28px/1 "Trebuchet MS", Verdana, sans-serif;
-    color: #fff;
-    text-shadow: 0 -1px 0 rgba(0,0,0,.35), 0 2px 0 rgba(0,0,0,.12);
-    letter-spacing: -1px;
-}
-.logo:hover { text-decoration: none; }
-.logo small { font-size: 11px; font-style: normal; letter-spacing: 0; margin-left: 6px; opacity: .9; }
-.search { margin-left: auto; display: flex; }
-.search input {
-    width: 220px; height: 26px; padding: 3px 8px;
-    border: 1px solid #3f7f0b; border-right: 0; border-radius: 3px 0 0 3px;
-    font: 12px Tahoma, Verdana, Arial, sans-serif; color: #555;
-    box-shadow: 0 1px 2px rgba(0,0,0,.25) inset;
-}
-.search button {
-    height: 26px; padding: 0 12px;
-    border: 1px solid #2f6a08; border-radius: 0 3px 3px 0;
-    background: linear-gradient(#78bf2a, #4a9610); color: #fff;
-    font: bold 12px Tahoma, Verdana, Arial, sans-serif; text-shadow: 0 -1px 0 rgba(0,0,0,.3); cursor: pointer;
-}
-
-/* nav tabs */
+ul { list-style: none; margin: 0; padding: 0; }
+.cf:after { content: ""; display: block; clear: both; }
+#head { background: linear-gradient(#8bd23a, #5aa616); border-bottom: 1px solid #3f7f0b; }
+#head .in { max-width: 960px; margin: 0 auto; padding: 10px 8px; }
+.logo { float: left; font: italic bold 26px/30px "Trebuchet MS", Verdana, sans-serif; color: #fff; letter-spacing: -1px; text-shadow: 0 -1px 0 rgba(0,0,0,.35); }
+.logo small { font-size: 11px; font-style: normal; letter-spacing: 0; margin-left: 6px; }
+.search { float: right; margin: 2px 0 0; white-space: nowrap; }
+.search input { width: 170px; height: 26px; padding: 3px 8px; border: 1px solid #3f7f0b; border-radius: 3px 0 0 3px; font: 12px Tahoma, Verdana, Arial, sans-serif; vertical-align: top; }
+.search button { height: 26px; padding: 0 10px; border: 1px solid #2f6a08; border-left: 0; border-radius: 0 3px 3px 0; background: linear-gradient(#78bf2a, #4a9610); color: #fff; font: bold 12px Tahoma, Verdana, Arial, sans-serif; vertical-align: top; }
 #nav { background: #f3f4f5; border-bottom: 1px solid #c9ced2; }
-#nav ul { max-width: 960px; margin: 0 auto; padding: 0 10px; list-style: none; display: flex; flex-wrap: wrap; }
-#nav li a {
-    display: block; padding: 8px 16px; color: #555; font-weight: bold; border-right: 1px solid #dfe2e5;
-}
-#nav li a:hover { background: #fff; text-decoration: none; color: #3a8d0f; }
-#nav li.on a { background: #fff; color: #3a8d0f; box-shadow: 0 -3px 0 #5aa616 inset; margin-bottom: -1px; padding-bottom: 9px; }
-
-/* page */
-#page { max-width: 960px; margin: 12px auto; padding: 0 10px; display: flex; gap: 12px; align-items: flex-start; }
-#side { width: 180px; flex: none; }
-#main { flex: 1; min-width: 0; background: #fff; border: 1px solid #cfd4d8; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
-
-.box { background: #fff; border: 1px solid #cfd4d8; margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
-.box h3 {
-    margin: 0; padding: 7px 10px; font-size: 12px; color: #fff;
-    background: linear-gradient(#7cc231, #559f13); border-bottom: 1px solid #3f7f0b; text-shadow: 0 -1px 0 rgba(0,0,0,.25);
-}
-.box ul { list-style: none; margin: 0; padding: 0; }
-.box li a { display: block; padding: 7px 10px; border-bottom: 1px dotted #d7dbde; color: #555; }
-.box li:last-child a { border-bottom: 0; }
-.box li a:hover { background: #f1f8e8; text-decoration: none; color: #3a8d0f; }
+#nav ul { max-width: 960px; margin: 0 auto; padding: 0 8px; }
+#nav li { display: inline-block; }
+#nav li a { display: block; padding: 8px 16px; color: #555; font-weight: bold; border-right: 1px solid #dfe2e5; }
+#nav li.on a { background: #fff; color: #3a8d0f; border-top: 3px solid #5aa616; padding-top: 5px; }
+#page { max-width: 960px; margin: 10px auto; padding: 0 8px; }
+#side { float: left; width: 180px; }
+#main { margin-left: 192px; background: #fff; border: 1px solid #cfd4d8; }
+.box { background: #fff; border: 1px solid #cfd4d8; margin-bottom: 10px; }
+.box h3 { margin: 0; padding: 7px 10px; font-size: 12px; color: #fff; background: linear-gradient(#7cc231, #559f13); border-bottom: 1px solid #3f7f0b; }
+.box li a { display: block; padding: 8px 10px; border-bottom: 1px dotted #d7dbde; color: #555; }
 .box li.on a { background: #eaf5db; color: #3a8d0f; font-weight: bold; }
-.promo { padding: 10px; text-align: center; color: #666; }
-.promo b { display: block; color: #3a8d0f; font-size: 13px; margin-bottom: 6px; }
-.btn {
-    display: inline-block; padding: 5px 14px; border: 1px solid #3f7f0b; border-radius: 3px;
-    background: linear-gradient(#86cc3a, #4f9c10); color: #fff; font-weight: bold; text-shadow: 0 -1px 0 rgba(0,0,0,.3);
-    box-shadow: 0 1px 0 rgba(255,255,255,.4) inset;
-}
-.btn:hover { background: linear-gradient(#92d646, #58a818); text-decoration: none; }
-
-/* main */
+.btn { display: inline-block; padding: 5px 14px; border: 1px solid #3f7f0b; border-radius: 3px; background: linear-gradient(#86cc3a, #4f9c10); color: #fff; font: bold 12px Tahoma, Verdana, Arial, sans-serif; text-shadow: 0 -1px 0 rgba(0,0,0,.3); }
+.btn.sm { padding: 3px 12px; font-size: 11px; margin-right: 4px; }
+.btn.gray { background: linear-gradient(#fff, #e6e9ec); border-color: #b9c0c6; color: #555; text-shadow: none; }
+.btn.on { background: linear-gradient(#f7b045, #e08a0b); border-color: #b86d05; }
 .crumb { padding: 8px 12px; background: #f7f8f9; border-bottom: 1px solid #e1e4e7; color: #888; font-size: 11px; }
-.bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px 0; border-bottom: 2px solid #5aa616; flex-wrap: wrap; gap: 4px; }
-.bar h1 { margin: 0 0 -2px; font-size: 15px; color: #3a8d0f; padding-bottom: 7px; }
-.sort { display: flex; gap: 2px; margin-bottom: -2px; }
-.sort a {
-    padding: 4px 12px; border: 1px solid #d7dbde; border-bottom: 0; border-radius: 3px 3px 0 0;
-    background: #f3f4f5; color: #666;
-}
+.bar { padding: 10px 12px 0; border-bottom: 2px solid #5aa616; }
+.bar h1 { display: inline-block; margin: 0; padding-bottom: 7px; font-size: 15px; color: #3a8d0f; }
+.sort { float: right; margin-bottom: -2px; }
+.sort a { display: inline-block; padding: 4px 12px; border: 1px solid #d7dbde; border-bottom: 0; background: #f3f4f5; color: #666; }
 .sort a.on { background: #5aa616; border-color: #5aa616; color: #fff; font-weight: bold; }
-.sort a:hover { text-decoration: none; }
-
-#gallery { list-style: none; margin: 0; padding: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-.item { border: 1px solid #d7dbde; background: #fafbfb; padding: 5px; text-align: center; }
-.item:hover { border-color: #5aa616; background: #fff; box-shadow: 0 0 4px rgba(90,166,22,.5); }
-.item .pic { display: block; border: 1px solid #e1e4e7; background: #eef0f2; }
-.item img { display: block; width: 100%; height: 200px; object-fit: cover; }
-.item .t { margin: 6px 0 5px; font-size: 12px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.item .btn { padding: 2px 12px; font-size: 11px; }
-.msg { grid-column: 1 / -1; padding: 30px 0; text-align: center; color: #888; }
-
-#pager { padding: 10px 12px 14px; text-align: center; border-top: 1px solid #e1e4e7; background: #f7f8f9; }
-#pager a, #pager span {
-    display: inline-block; min-width: 24px; margin: 0 2px; padding: 3px 7px; border: 1px solid #d0d5d9; background: #fff; color: #555;
-}
-#pager a:hover { border-color: #5aa616; color: #3a8d0f; text-decoration: none; }
+.slider { position: relative; height: 150px; margin: 10px 10px 0; border: 1px solid #b9c0c6; background: #2f3438; overflow: hidden; }
+.slider .sl { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: none; background-size: cover; background-position: center 35%; }
+.slider .sl.on { display: block; }
+.slider .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 10px 6px; color: #fff; font-weight: bold; font-size: 13px; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.75)); }
+.slider .dots { position: absolute; right: 6px; bottom: 5px; }
+.slider .dots a { display: inline-block; width: 22px; height: 22px; margin-left: 3px; border: 1px solid #fff; background: rgba(0,0,0,.5); color: #fff; font-size: 11px; line-height: 20px; text-align: center; }
+.slider .dots a.on { background: #5aa616; }
+#gallery { padding: 5px; }
+.item { float: left; width: 23%; margin: 1%; border: 1px solid #d7dbde; background: #fafbfb; padding: 5px; text-align: center; }
+.item .pic { display: block; height: 170px; border: 1px solid #e1e4e7; background: #eef0f2 center no-repeat; background-size: cover; }
+.item .t { margin: 6px 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg { clear: both; padding: 30px 10px; text-align: center; color: #888; }
+#pager { clear: both; padding: 10px 8px 14px; text-align: center; border-top: 1px solid #e1e4e7; background: #f7f8f9; }
+#pager a, #pager span { display: inline-block; margin: 2px; padding: 4px 9px; border: 1px solid #d0d5d9; background: #fff; color: #555; }
 #pager span.on { background: #5aa616; border-color: #3f7f0b; color: #fff; font-weight: bold; }
 #pager span.off { color: #bbb; background: #f3f4f5; }
-
-/* featured slider */
-.slider { position: relative; height: 170px; margin: 12px 12px 0; border: 1px solid #b9c0c6; background: #2f3438; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
-.slider img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: none; cursor: pointer; }
-.slider img.on { display: block; }
-.slider .cap {
-    position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 12px 7px; color: #fff; font-weight: bold; font-size: 13px;
-    background: linear-gradient(transparent, rgba(0,0,0,.75)); pointer-events: none; text-shadow: 0 1px 1px #000;
-}
-.slider .dots { position: absolute; right: 8px; bottom: 7px; display: flex; gap: 4px; }
-.slider .dots button {
-    width: 18px; height: 18px; padding: 0; border: 1px solid #fff; border-radius: 2px; cursor: pointer;
-    background: rgba(0,0,0,.45); color: #fff; font: bold 10px Tahoma, Verdana, Arial, sans-serif;
-}
-.slider .dots button.on { background: #5aa616; border-color: #bfe58f; }
-
-/* preview window */
-#lb { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.72); display: flex; align-items: center; justify-content: center; padding: 10px; }
+.note { margin: 10px 12px 0; padding: 7px 10px; background: #fffbe6; border: 1px solid #ecdc8a; color: #7a6a1b; font-size: 11px; }
+.rt { padding: 8px 10px; border-bottom: 1px solid #e8ebed; }
+.rt .th { float: left; width: 88px; height: 50px; margin-right: 10px; background: #2f3438 center no-repeat; background-size: cover; border: 1px solid #c9ced2; }
+.rt .inf { overflow: hidden; }
+.rt .tt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; font-weight: bold; }
+.rt .mt { color: #888; font-size: 11px; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#foot { max-width: 960px; margin: 0 auto 20px; padding: 12px 8px; text-align: center; color: #8a9096; font-size: 11px; border-top: 1px solid #cdd2d6; }
+#lb { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 50; background: rgba(0,0,0,.75); overflow: auto; padding: 10px; }
 #lb[hidden] { display: none; }
-.win { background: #fff; border: 1px solid #2f3438; box-shadow: 0 6px 24px rgba(0,0,0,.6); max-width: 440px; width: 100%; }
-.win .tb {
-    display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; color: #fff; font-weight: bold;
-    background: linear-gradient(#7cc231, #559f13); border-bottom: 1px solid #3f7f0b; text-shadow: 0 -1px 0 rgba(0,0,0,.3);
-}
-.win .tb button { border: 0; background: none; color: #fff; font: bold 18px/1 Arial, sans-serif; cursor: pointer; padding: 0 2px; }
+.win { max-width: 420px; margin: 0 auto; background: #fff; border: 1px solid #2f3438; }
+.win .tb { padding: 7px 10px; color: #fff; font-weight: bold; background: linear-gradient(#7cc231, #559f13); }
+.win .tb a { float: right; color: #fff; font-size: 18px; line-height: 14px; }
 .win .pv { background: #eef0f2; padding: 8px; text-align: center; }
-.win .pv img { max-width: 100%; max-height: 68vh; display: inline-block; border: 1px solid #c9ced2; background: #fff; }
-.win .ft { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 8px 10px; background: #f7f8f9; border-top: 1px solid #e1e4e7; }
-.win .ft .btn { cursor: pointer; font: bold 12px Tahoma, Verdana, Arial, sans-serif; }
-.win .ft .plain { background: linear-gradient(#fff, #e6e9ec); border-color: #b9c0c6; color: #555; text-shadow: none; }
-
-a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #f7a21b; outline-offset: 1px; }
-.item img { background: #eef0f2; }
-
-#foot { max-width: 960px; margin: 0 auto 20px; padding: 12px 10px; text-align: center; color: #8a9096; font-size: 11px; border-top: 1px solid #cdd2d6; }
-
+.win .pv img { max-width: 100%; max-height: 65%; border: 1px solid #c9ced2; }
+.win .ft { padding: 8px; background: #f7f8f9; border-top: 1px solid #e1e4e7; text-align: center; }
 @media (max-width: 700px) {
-    #page { flex-direction: column; }
-    #side { width: 100%; }
-    .search { margin-left: 0; width: 100%; }
-    .search input { flex: 1; width: auto; }
-    #nav li a { padding: 8px 10px; }
+  #side { float: none; width: auto; }
+  #main { margin-left: 0; }
+  .box li { display: inline-block; }
+  .box li a { border: 0; }
+  .item { width: 48%; }
+  .search input { width: 120px; }
 }
 </style>
 </head>
 <body>
-
-<div id="head"><div class="in">
-    <a class="logo" href="#">Mobogenie<small>Your Android Genie</small></a>
-    <form class="search" id="searchForm">
-        <input type="text" id="q" placeholder="Search wallpapers...">
-        <button type="submit">Search</button>
-    </form>
+<div id="head"><div class="in cf">
+  <a class="logo" href="#">Mobogenie<small>Your Android Genie</small></a>
+  <form class="search" id="searchForm"><input type="text" id="q" placeholder="Search wallpapers..."><button type="submit">Search</button></form>
 </div></div>
-
 <div id="nav"><ul>
-    <li class="on"><a href="#">Wallpapers</a></li>
+  <li id="tabW" class="on"><a href="#">Wallpapers</a></li><li id="tabR"><a href="#">Ringtones</a></li>
 </ul></div>
 
-<div id="page">
-    <div id="side">
-        <div class="box">
-            <h3>Wallpapers</h3>
-            <ul id="sideSort">
-                <li class="on"><a href="#" data-sort="hot">Most Popular</a></li>
-                <li><a href="#" data-sort="new">Latest Added</a></li>
-            </ul>
-        </div>
-        <div class="box">
-            <h3>Categories</h3>
-            <ul id="sideCat"></ul>
-        </div>
-        <div class="box">
-            <div class="promo"><b>Get Mobogenie</b>Free apps, games and wallpapers for your phone.<br><br><a class="btn" href="#">Download</a></div>
-        </div>
+<div id="page" class="cf">
+  <div id="side">
+    <div class="box" id="sideW"><h3>Categories</h3><ul id="sideCat"></ul></div>
+    <div class="box" id="sideR" style="display:none"><h3>Quick search</h3><ul id="sideQuick"></ul></div>
+  </div>
+  <div id="main">
+    <div id="viewW">
+      <div class="crumb"><a href="#">Wallpapers</a> &gt; <span id="crumbCount">All</span></div>
+      <div class="slider" id="slider" style="display:none"><div id="slides"></div><div class="cap" id="slideCap"></div><div class="dots" id="dots"></div></div>
+      <div class="bar cf"><h1>Mobogenie Wallpapers</h1>
+        <div class="sort" id="tabSort"><a href="#" data-sort="hot" class="on">Hot</a><a href="#" data-sort="new">New</a></div>
+      </div>
+      <div id="gallery" class="cf"><div class="msg">Loading wallpapers...</div></div>
+      <div id="pager"></div>
     </div>
-
-    <div id="main">
-        <div class="crumb"><a href="#">Wallpapers</a> &gt; <span id="crumbCount">All</span></div>
-        <div class="slider" id="slider" hidden>
-            <div id="slides"></div>
-            <div class="cap" id="slideCap"></div>
-            <div class="dots" id="dots"></div>
-        </div>
-        <div class="bar">
-            <h1>Mobogenie Wallpapers</h1>
-            <div class="sort" id="tabSort">
-                <a href="#" data-sort="hot" class="on">Hot</a>
-                <a href="#" data-sort="new">New</a>
-            </div>
-        </div>
-        <ul id="gallery"><li class="msg">Loading wallpapers...</li></ul>
-        <div id="pager"></div>
+    <div id="viewR" style="display:none">
+      <div class="crumb"><a href="#">Ringtones</a> &gt; <span id="rtCrumb">Search</span></div>
+      <div class="bar cf"><h1>Ringtones</h1></div>
+      <div class="note">Audio streams from public Invidious servers as M4A (AAC), which Android accepts as a ringtone. It is not converted to MP3. Public servers can be slow or go offline.</div>
+      <ul id="rtList"></ul>
+      <div class="msg" id="rtMsg"></div>
     </div>
+  </div>
 </div>
-
-<div id="foot">Copyright &copy; 2014 Mobogenie. All rights reserved. &nbsp;|&nbsp; <a href="#">About Us</a> &nbsp;|&nbsp; <a href="#">Terms of Use</a> &nbsp;|&nbsp; <a href="#">Privacy Policy</a></div>
+<div id="foot">Copyright &copy; 2014 Mobogenie. All rights reserved.</div>
+<audio id="player" preload="none"></audio>
 
 <div id="lb" hidden>
-    <div class="win" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
-        <div class="tb"><span id="lbTitle"></span><button id="lbClose" aria-label="Close">&times;</button></div>
-        <div class="pv"><img id="lbImg" alt=""></div>
-        <div class="ft">
-            <button class="btn plain" id="lbPrev">&lt; Prev</button>
-            <span id="lbCount"></span>
-            <button class="btn" id="lbSave">Download</button>
-            <button class="btn plain" id="lbNext">Next &gt;</button>
-        </div>
-    </div>
+  <div class="win">
+    <div class="tb"><a href="#" id="lbClose">&times;</a><span id="lbTitle"></span></div>
+    <div class="pv"><img id="lbImg" alt=""></div>
+    <div class="ft"><a class="btn gray" href="#" id="lbPrev">&lt; Prev</a> <span id="lbCount"></span> <a class="btn" id="lbSave" href="#" target="_blank">Download</a> <a class="btn gray" href="#" id="lbNext">Next &gt;</a></div>
+  </div>
 </div>
 
 <script>
-const PER_PAGE = 20;
-const SOURCES = [
-    'https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json',
-    'https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/funny/index.json'
+/* ES5 only, so it runs in the Android 4.4 WebView. */
+(function () {
+var SOURCES = [
+  'https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json',
+  'https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/funny/index.json'
 ];
-let all = [], view = [], page = 1, sort = 'hot', cat = 'all';
+/* Invidious servers tried for ringtones (edit freely). The live list from api.invidious.io is tried first. */
+var INSTANCES = ['https://yewtu.be', 'https://inv.nadeko.net', 'https://invidious.nerdvpn.de'];
+var QUICK = ['ringtone', 'funny ringtone', 'sms tone', 'alarm tone', 'instrumental ringtone'];
+var PER_PAGE = 20;
 
-const gallery = document.getElementById('gallery');
-const pager = document.getElementById('pager');
-const crumbCount = document.getElementById('crumbCount');
-const q = document.getElementById('q');
+function $(id) { return document.getElementById(id); }
+function el(tag, cls, text) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.appendChild(document.createTextNode(text));
+  return e;
+}
+function bg(e, url) { e.style.backgroundImage = 'url("' + url + '")'; }
+function trim(s) { return String(s).replace(/^\s+|\s+$/g, ''); }
+function each(list, fn) { for (var i = 0; i < list.length; i++) fn(list[i], i); }
+function xhr(url, ok, fail) {
+  var r = new XMLHttpRequest(), fin = false;
+  function end(good, data) { if (fin) return; fin = true; if (good) ok(data); else fail(); }
+  r.open('GET', url, true);
+  r.timeout = 8000;
+  r.onreadystatechange = function () {
+    if (r.readyState !== 4) return;
+    if (r.status === 200) { var d; try { d = JSON.parse(r.responseText); } catch (e) { return end(false); } end(true, d); }
+    else end(false);
+  };
+  r.ontimeout = function () { end(false); };
+  r.send();
+}
 
-Promise.all(SOURCES.map(u =>
-    fetch(u).then(r => { if (!r.ok) throw new Error('Network failure'); return r.json(); })
-        .catch(err => { console.error('Error:', u, err); return []; })
-))
-    .then(lists => {
-        all = [].concat(...lists);
-        if (!all.length) throw new Error('No wallpapers loaded');
-        buildCats(); apply(); buildSlider();
-    })
-    .catch(err => {
-        console.error('Error:', err);
-        gallery.innerHTML = '';
-        const li = document.createElement('li');
-        li.className = 'msg';
-        li.textContent = 'Could not load wallpapers. Please check your connection and try again.';
-        gallery.appendChild(li);
-    });
+/* ---------- wallpapers ---------- */
+var all = [], view = [], page = 1, sort = 'hot', cat = 'all', tab = 'W';
+var gallery = $('gallery'), pager = $('pager'), q = $('q');
 
+var pending = SOURCES.length, lists = [];
+each(SOURCES, function (u, i) {
+  xhr(u, function (d) { lists[i] = d; done(); }, function () { lists[i] = []; done(); });
+});
+function done() {
+  if (--pending) return;
+  all = [].concat.apply([], lists);
+  if (!all.length) { gallery.innerHTML = ''; gallery.appendChild(el('div', 'msg', 'Could not load wallpapers. Please check your connection and try again.')); return; }
+  buildCats(); apply(); buildSlider();
+}
 function apply() {
-    const term = q.value.trim().toLowerCase();
-    view = all.filter(i => (cat === 'all' || i.category === cat) && (!term || i.title.toLowerCase().includes(term)));
-    if (sort === 'new') view = view.slice().reverse();
-    page = 1;
-    render();
+  var term = trim(q.value).toLowerCase();
+  view = [];
+  each(all, function (i) {
+    if ((cat === 'all' || i.category === cat) && (!term || i.title.toLowerCase().indexOf(term) > -1)) view.push(i);
+  });
+  if (sort === 'new') view.reverse();
+  page = 1;
+  render();
 }
-
 function render() {
-    gallery.innerHTML = '';
-    crumbCount.textContent = (cat === 'all' ? 'All' : cat) + ' (' + view.length + ')';
-    if (!view.length) {
-        const li = document.createElement('li');
-        li.className = 'msg';
-        li.textContent = 'No wallpapers found.';
-        gallery.appendChild(li);
-        pager.innerHTML = '';
-        return;
-    }
-    const start = (page - 1) * PER_PAGE;
-    view.slice(start, start + PER_PAGE).forEach((item, n) => {
-        const url = item.url.trim(), title = item.title.trim();
-        const li = document.createElement('li');
-        li.className = 'item';
-
-        const a = document.createElement('a');
-        a.className = 'pic'; a.href = url; a.target = '_blank';
-        a.addEventListener('click', e => { e.preventDefault(); openBox(start + n, view); });
-        const img = document.createElement('img');
-        img.src = url; img.alt = title; img.loading = 'lazy';
-        a.appendChild(img);
-
-        const t = document.createElement('div');
-        t.className = 't'; t.textContent = title; t.title = title;
-
-        const dl = document.createElement('a');
-        dl.className = 'btn'; dl.href = url; dl.target = '_blank'; dl.textContent = 'Download';
-        dl.addEventListener('click', e => { e.preventDefault(); saveFile(item); });
-
-        li.append(a, t, dl);
-        gallery.appendChild(li);
-    });
-    renderPager();
+  gallery.innerHTML = '';
+  $('crumbCount').textContent = (cat === 'all' ? 'All' : cat) + ' (' + view.length + ')';
+  if (!view.length) { gallery.appendChild(el('div', 'msg', 'No wallpapers found.')); pager.innerHTML = ''; return; }
+  var start = (page - 1) * PER_PAGE;
+  each(view.slice(start, start + PER_PAGE), function (item, n) {
+    var url = trim(item.url), title = trim(item.title);
+    var box = el('div', 'item');
+    var a = el('a', 'pic'); a.href = url; a.target = '_blank'; bg(a, url);
+    a.onclick = function (e) { e.preventDefault(); openBox(start + n, view); };
+    var t = el('div', 't', title);
+    var dl = el('a', 'btn sm', 'Download'); dl.href = url; dl.target = '_blank';
+    box.appendChild(a); box.appendChild(t); box.appendChild(dl);
+    gallery.appendChild(box);
+  });
+  renderPager();
 }
-
 function renderPager() {
-    const pages = Math.ceil(view.length / PER_PAGE);
-    pager.innerHTML = '';
-    if (pages < 2) return;
-    const add = (label, p, cls) => {
-        let el;
-        if (cls) { el = document.createElement('span'); el.className = cls; }
-        else {
-            el = document.createElement('a'); el.href = '#';
-            el.onclick = e => { e.preventDefault(); page = p; render(); window.scrollTo(0, 0); };
-        }
-        el.textContent = label;
-        pager.appendChild(el);
-    };
-    add('< Prev', page - 1, page === 1 ? 'off' : null);
-    for (let p = 1; p <= pages; p++) add(p, p, p === page ? 'on' : null);
-    add('Next >', page + 1, page === pages ? 'off' : null);
+  var pages = Math.ceil(view.length / PER_PAGE);
+  pager.innerHTML = '';
+  if (pages < 2) return;
+  function add(label, p, cls) {
+    var e;
+    if (cls) { e = el('span', cls, label); }
+    else { e = el('a', '', label); e.href = '#'; e.onclick = function (ev) { ev.preventDefault(); page = p; render(); window.scrollTo(0, 0); }; }
+    pager.appendChild(e);
+  }
+  add('< Prev', page - 1, page === 1 ? 'off' : '');
+  for (var p = 1; p <= pages; p++) add(String(p), p, p === page ? 'on' : '');
+  add('Next >', page + 1, page === pages ? 'off' : '');
 }
-
 function buildCats() {
-    const ul = document.getElementById('sideCat');
-    const names = ['all'].concat([...new Set(all.map(i => i.category))]);
-    names.forEach(name => {
-        const count = name === 'all' ? all.length : all.filter(i => i.category === name).length;
-        const li = document.createElement('li');
-        if (name === cat) li.className = 'on';
-        const a = document.createElement('a');
-        a.href = '#'; a.textContent = (name === 'all' ? 'All' : name) + ' (' + count + ')';
-        a.addEventListener('click', e => {
-            e.preventDefault(); cat = name;
-            ul.querySelectorAll('li').forEach(x => x.classList.toggle('on', x === li));
-            apply();
-        });
-        li.appendChild(a); ul.appendChild(li);
-    });
+  var ul = $('sideCat'), names = ['all'], seen = {};
+  each(all, function (i) { if (!seen[i.category]) { seen[i.category] = 1; names.push(i.category); } });
+  each(names, function (name) {
+    var count = 0;
+    each(all, function (i) { if (name === 'all' || i.category === name) count++; });
+    var li = el('li', name === cat ? 'on' : '');
+    var a = el('a', '', (name === 'all' ? 'All' : name) + ' (' + count + ')'); a.href = '#';
+    a.onclick = function (e) {
+      e.preventDefault(); cat = name;
+      each(ul.getElementsByTagName('li'), function (x) { x.className = x === li ? 'on' : ''; });
+      apply();
+    };
+    li.appendChild(a); ul.appendChild(li);
+  });
 }
-
-function setSort(s) {
-    sort = s;
-    document.querySelectorAll('#tabSort a').forEach(a => a.classList.toggle('on', a.dataset.sort === s));
-    document.querySelectorAll('#sideSort li').forEach(li => li.classList.toggle('on', li.firstElementChild.dataset.sort === s));
+each($('tabSort').getElementsByTagName('a'), function (a) {
+  a.onclick = function (e) {
+    e.preventDefault(); sort = a.getAttribute('data-sort');
+    each($('tabSort').getElementsByTagName('a'), function (x) { x.className = x === a ? 'on' : ''; });
     apply();
-}
-document.querySelectorAll('[data-sort]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); setSort(a.dataset.sort); }));
-document.getElementById('searchForm').addEventListener('submit', e => { e.preventDefault(); apply(); });
-
-/* featured slider */
-let sIdx = 0, sTimer;
-function buildSlider() {
-    const feat = all.slice(0, 5);
-    if (!feat.length) return;
-    const slides = document.getElementById('slides'), dots = document.getElementById('dots');
-    feat.forEach((it, i) => {
-        const img = document.createElement('img');
-        img.src = it.url.trim(); img.alt = it.title.trim();
-        img.addEventListener('click', () => openBox(i, all));
-        slides.appendChild(img);
-        const b = document.createElement('button');
-        b.textContent = i + 1; b.setAttribute('aria-label', 'Show ' + it.title.trim());
-        b.addEventListener('click', () => { showSlide(i); startSlider(); });
-        dots.appendChild(b);
-    });
-    const sl = document.getElementById('slider');
-    sl.hidden = false;
-    sl.addEventListener('mouseenter', () => clearInterval(sTimer));
-    sl.addEventListener('mouseleave', startSlider);
-    showSlide(0);
-    startSlider();
-}
-function showSlide(i) {
-    sIdx = i;
-    document.querySelectorAll('#slides img').forEach((im, k) => im.classList.toggle('on', k === i));
-    document.querySelectorAll('#dots button').forEach((b, k) => b.classList.toggle('on', k === i));
-    document.getElementById('slideCap').textContent = 'Featured: ' + all[i].title.trim();
-}
-function startSlider() {
-    clearInterval(sTimer);
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    sTimer = setInterval(() => showSlide((sIdx + 1) % document.querySelectorAll('#slides img').length), 4500);
-}
-
-/* preview window */
-let boxList = [], boxIdx = 0;
-const lb = document.getElementById('lb');
-function openBox(i, list) { boxList = list; boxIdx = i; showBox(); lb.hidden = false; document.getElementById('lbClose').focus(); }
-function closeBox() { lb.hidden = true; document.getElementById('lbImg').src = ''; }
-function stepBox(d) { boxIdx = (boxIdx + d + boxList.length) % boxList.length; showBox(); }
-function showBox() {
-    const it = boxList[boxIdx];
-    const img = document.getElementById('lbImg');
-    img.src = it.url.trim(); img.alt = it.title.trim();
-    document.getElementById('lbTitle').textContent = it.title.trim();
-    document.getElementById('lbCount').textContent = (boxIdx + 1) + ' / ' + boxList.length;
-}
-document.getElementById('lbClose').addEventListener('click', closeBox);
-document.getElementById('lbPrev').addEventListener('click', () => stepBox(-1));
-document.getElementById('lbNext').addEventListener('click', () => stepBox(1));
-document.getElementById('lbSave').addEventListener('click', () => saveFile(boxList[boxIdx]));
-lb.addEventListener('click', e => { if (e.target === lb) closeBox(); });
-document.addEventListener('keydown', e => {
-    if (lb.hidden) return;
-    if (e.key === 'Escape') closeBox();
-    else if (e.key === 'ArrowLeft') stepBox(-1);
-    else if (e.key === 'ArrowRight') stepBox(1);
+  };
 });
 
-/* real download (falls back to opening the image) */
-function saveFile(item) {
-    const url = item.url.trim();
-    const name = (item.title.trim().replace(/[^\w\- ]+/g, '') || 'wallpaper') + '.jpg';
-    fetch(url).then(r => { if (!r.ok) throw new Error('bad response'); return r.blob(); }).then(blob => {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob); a.download = name;
-        document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    }).catch(() => window.open(url, '_blank'));
+/* ---------- featured slider ---------- */
+var sIdx = 0, sTimer, slideEls = [], dotEls = [];
+function buildSlider() {
+  var feat = all.slice(0, 5);
+  if (!feat.length) return;
+  each(feat, function (it, i) {
+    var s = el('div', 'sl'); bg(s, trim(it.url));
+    s.onclick = function () { openBox(i, all); };
+    $('slides').appendChild(s); slideEls.push(s);
+    var d = el('a', '', String(i + 1)); d.href = '#';
+    d.onclick = function (e) { e.preventDefault(); showSlide(i); startSlider(); };
+    $('dots').appendChild(d); dotEls.push(d);
+  });
+  $('slider').style.display = 'block';
+  showSlide(0); startSlider();
 }
+function showSlide(i) {
+  sIdx = i;
+  each(slideEls, function (s, k) { s.className = k === i ? 'sl on' : 'sl'; });
+  each(dotEls, function (d, k) { d.className = k === i ? 'on' : ''; });
+  $('slideCap').textContent = 'Featured: ' + trim(all[i].title);
+}
+function startSlider() {
+  clearInterval(sTimer);
+  sTimer = setInterval(function () { showSlide((sIdx + 1) % slideEls.length); }, 4500);
+}
+
+/* ---------- preview window ---------- */
+var boxList = [], boxIdx = 0, lb = $('lb');
+function openBox(i, list) { boxList = list; boxIdx = i; showBox(); lb.hidden = false; lb.removeAttribute('hidden'); lb.style.display = 'block'; }
+function closeBox() { lb.style.display = 'none'; $('lbImg').src = ''; }
+function stepBox(d) { boxIdx = (boxIdx + d + boxList.length) % boxList.length; showBox(); }
+function showBox() {
+  var it = boxList[boxIdx], url = trim(it.url);
+  $('lbImg').src = url; $('lbTitle').textContent = trim(it.title);
+  $('lbSave').href = url;
+  $('lbCount').textContent = (boxIdx + 1) + ' / ' + boxList.length;
+}
+lb.style.display = 'none';
+$('lbClose').onclick = function (e) { e.preventDefault(); closeBox(); };
+$('lbPrev').onclick = function (e) { e.preventDefault(); stepBox(-1); };
+$('lbNext').onclick = function (e) { e.preventDefault(); stepBox(1); };
+lb.onclick = function (e) { if (e.target === lb) closeBox(); };
+
+/* ---------- ringtones (Invidious API) ---------- */
+var base = null, listTried = false, player = $('player'), curId = null, curBtn = null, tries = 0;
+
+function loadInstances(cb) {
+  if (listTried) return cb();
+  listTried = true;
+  xhr('https://api.invidious.io/instances.json?sort_by=type,health', function (d) {
+    var found = [];
+    each(d, function (row) {
+      var v = row && row[1];
+      if (v && v.api === true && v.cors === true && v.type === 'https' && v.uri) found.push(String(v.uri).replace(/\/$/, ''));
+    });
+    found = found.slice(0, 5);
+    each(INSTANCES, function (u) { if (found.indexOf(u) < 0) found.push(u); });
+    INSTANCES = found;
+    cb();
+  }, cb);
+}
+function api(path, ok, fail) {
+  var list = INSTANCES.slice();
+  if (base) { var k = list.indexOf(base); if (k > -1) list.splice(k, 1); list.unshift(base); }
+  list = list.slice(0, 6);
+  (function next(i) {
+    if (i >= list.length) return fail();
+    xhr(list[i] + path, function (d) { base = list[i]; ok(d); }, function () { next(i + 1); });
+  })(0);
+}
+function audioUrl(id) { return base + '/latest_version?id=' + id + '&itag=140&local=true'; }
+function fmt(s) { s = s || 0; var m = Math.floor(s / 60), r = s % 60; return m + ':' + (r < 10 ? '0' : '') + r; }
+function rtStatus(t) { $('rtMsg').textContent = t; }
+
+function resetBtn() { if (curBtn) { curBtn.firstChild.nodeValue = 'Play'; curBtn.className = curBtn.className.replace(' on', ''); } }
+function stopAudio() { try { player.pause(); } catch (e) {} resetBtn(); curId = null; curBtn = null; }
+function startAudio() {
+  player.src = audioUrl(curId);
+  player.load(); player.play();
+  curBtn.firstChild.nodeValue = 'Stop';
+  if (curBtn.className.indexOf(' on') < 0) curBtn.className += ' on';
+}
+function toggle(id, btn) {
+  if (curId === id) { stopAudio(); return; }
+  stopAudio(); curId = id; curBtn = btn; tries = 0; startAudio();
+}
+player.onended = stopAudio;
+player.onerror = function () {
+  if (!curId) return;
+  if (tries < 2) { tries++; base = INSTANCES[(INSTANCES.indexOf(base) + 1) % INSTANCES.length]; startAudio(); }
+  else { stopAudio(); rtStatus('Could not play that one. Try Download or another result.'); }
+};
+
+function row(v) {
+  var li = el('li', 'rt cf'), th = el('div', 'th'), inf = el('div', 'inf');
+  bg(th, base + '/vi/' + v.videoId + '/mqdefault.jpg');
+  inf.appendChild(el('div', 'tt', v.title));
+  inf.appendChild(el('div', 'mt', (v.author || '') + ' \u2022 ' + fmt(v.lengthSeconds) + ' \u2022 M4A audio'));
+  var play = el('a', 'btn sm', 'Play'); play.href = '#';
+  play.onclick = function (e) { e.preventDefault(); toggle(v.videoId, play); };
+  var dl = el('a', 'btn sm gray', 'Download'); dl.href = audioUrl(v.videoId); dl.target = '_blank';
+  dl.onclick = function () { dl.href = audioUrl(v.videoId); };
+  inf.appendChild(play); inf.appendChild(dl);
+  li.appendChild(th); li.appendChild(inf);
+  return li;
+}
+function searchRT(term) {
+  term = trim(term) || 'ringtone';
+  var list = $('rtList');
+  stopAudio(); list.innerHTML = ''; $('rtCrumb').textContent = term; rtStatus('Searching...');
+  loadInstances(function () {
+    api('/api/v1/search?type=video&q=' + encodeURIComponent(term), function (d) {
+      var n = 0; list.innerHTML = '';
+      each(d, function (v) { if (v && v.type === 'video' && v.videoId) { list.appendChild(row(v)); n++; } });
+      rtStatus(n ? '' : 'No results.');
+    }, function () { rtStatus('Could not reach an Invidious server. Try again later, or edit the INSTANCES list in the script.'); });
+  });
+}
+each(QUICK, function (term) {
+  var li = el('li'), a = el('a', '', term); a.href = '#';
+  a.onclick = function (e) { e.preventDefault(); q.value = term; searchRT(term); };
+  li.appendChild(a); $('sideQuick').appendChild(li);
+});
+
+/* ---------- tabs and search ---------- */
+function showTab(t) {
+  tab = t;
+  $('tabW').className = t === 'W' ? 'on' : ''; $('tabR').className = t === 'R' ? 'on' : '';
+  $('viewW').style.display = t === 'W' ? 'block' : 'none'; $('sideW').style.display = t === 'W' ? 'block' : 'none';
+  $('viewR').style.display = t === 'R' ? 'block' : 'none'; $('sideR').style.display = t === 'R' ? 'block' : 'none';
+  q.placeholder = t === 'W' ? 'Search wallpapers...' : 'Search ringtones...';
+  q.value = '';
+  if (t === 'W') { stopAudio(); apply(); }
+  else if (!$('rtList').firstChild) searchRT('ringtone');
+}
+$('tabW').firstChild.onclick = function (e) { e.preventDefault(); showTab('W'); };
+$('tabR').firstChild.onclick = function (e) { e.preventDefault(); showTab('R'); };
+$('searchForm').onsubmit = function (e) {
+  e.preventDefault();
+  if (tab === 'W') apply(); else searchRT(q.value);
+  return false;
+};
+})();
 </script>
 </body>
 </html>
