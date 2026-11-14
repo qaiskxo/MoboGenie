@@ -147,8 +147,8 @@ a:hover { text-decoration: underline; }
         <div class="box">
             <h3>Wallpapers</h3>
             <ul id="sideSort">
-                <li class="on" id="sideHot"><a href="#" data-sort="hot">Most Popular</a></li>
-                <li id="sideNew"><a href="#" data-sort="new">Latest Added</a></li>
+                <li class="on"><a href="#" data-sort="hot">Most Popular</a></li>
+                <li><a href="#" data-sort="new">Latest Added</a></li>
             </ul>
         </div>
         <div class="box">
@@ -161,8 +161,8 @@ a:hover { text-decoration: underline; }
         <div class="bar">
             <h1>Mobogenie Wallpapers</h1>
             <div class="sort" id="tabSort">
-                <a href="#" data-sort="hot" class="on" id="tabHot">Hot</a>
-                <a href="#" data-sort="new" id="tabNew">New</a>
+                <a href="#" data-sort="hot" class="on">Hot</a>
+                <a href="#" data-sort="new">New</a>
             </div>
         </div>
         <ul id="gallery"><li class="msg">Loading wallpapers...</li></ul>
@@ -173,59 +173,96 @@ a:hover { text-decoration: underline; }
 <div id="foot">Copyright &copy; 2014 Mobogenie. All rights reserved. &nbsp;|&nbsp; <a href="#">About Us</a> &nbsp;|&nbsp; <a href="#">Terms of Use</a> &nbsp;|&nbsp; <a href="#">Privacy Policy</a></div>
 
 <script>
-let allItems = [];
-let currentItems = [];
-let currentPage = 1;
-const itemsPerPage = 12;
-let currentSort = 'hot';
-let searchQuery = '';
+const PER_PAGE = 20;
+let all = [], view = [], page = 1, sort = 'hot';
 
-// Load data directly from your working repository path
+const gallery = document.getElementById('gallery');
+const pager = document.getElementById('pager');
+const crumbCount = document.getElementById('crumbCount');
+const q = document.getElementById('q');
+
 fetch('https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json')
-    .then(res => {
-        if (!res.ok) throw new Error('Failed to load JSON');
-        return res.json();
-    })
-    .then(data => {
-        allItems = data;
-        processAndRender();
-    })
+    .then(r => { if (!r.ok) throw new Error('Network failure'); return r.json(); })
+    .then(data => { all = data; apply(); })
     .catch(err => {
-        console.error(err);
-        document.getElementById('gallery').innerHTML = '<li class="msg">Failed to load asset index.</li>';
+        console.error('Error:', err);
+        gallery.innerHTML = '';
+        const li = document.createElement('li');
+        li.className = 'msg';
+        li.textContent = 'Could not load wallpapers. Please check your connection and try again.';
+        gallery.appendChild(li);
     });
 
-function processAndRender() {
-    // Filter by search query if present
-    if (searchQuery) {
-        currentItems = allItems.filter(item => 
-            item.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-    } else {
-        currentItems = [...allItems];
-    }
-
-    // Sort order logic
-    if (currentSort === 'new') {
-        // Reverse array sequence for 'New'
-        currentItems.reverse();
-    } else {
-        // Natural layout matching order for 'Hot'
-        currentItems.sort((a, b) => {
-            let numA = parseInt(a.id.replace('wp_', '')) || 0;
-            let numB = parseInt(b.id.replace('wp_', '')) || 0;
-            return numA - numB;
-        });
-    }
-
-    currentPage = 1;
-    renderGallery();
+function apply() {
+    const term = q.value.trim().toLowerCase();
+    view = all.filter(i => !term || i.title.toLowerCase().includes(term));
+    if (sort === 'new') view = view.slice().reverse();
+    page = 1;
+    render();
 }
 
-function renderGallery() {
-    const gallery = document.getElementById('gallery');
-    const crumbCount = document.getElementById('crumbCount');
-    
-    if (searchQuery) {
-        crumbCount.innerHTML = `Search: "${searchQuery}" (${currentItems.length})`;
-    } else {
+function render() {
+    gallery.innerHTML = '';
+    crumbCount.textContent = view.length + ' wallpapers';
+    if (!view.length) {
+        const li = document.createElement('li');
+        li.className = 'msg';
+        li.textContent = 'No wallpapers found.';
+        gallery.appendChild(li);
+        pager.innerHTML = '';
+        return;
+    }
+    const start = (page - 1) * PER_PAGE;
+    view.slice(start, start + PER_PAGE).forEach(item => {
+        const url = item.url.trim(), title = item.title.trim();
+        const li = document.createElement('li');
+        li.className = 'item';
+
+        const a = document.createElement('a');
+        a.className = 'pic'; a.href = url; a.target = '_blank';
+        const img = document.createElement('img');
+        img.src = url; img.alt = title; img.loading = 'lazy';
+        a.appendChild(img);
+
+        const t = document.createElement('div');
+        t.className = 't'; t.textContent = title; t.title = title;
+
+        const dl = document.createElement('a');
+        dl.className = 'btn'; dl.href = url; dl.target = '_blank'; dl.textContent = 'Download';
+
+        li.append(a, t, dl);
+        gallery.appendChild(li);
+    });
+    renderPager();
+}
+
+function renderPager() {
+    const pages = Math.ceil(view.length / PER_PAGE);
+    pager.innerHTML = '';
+    if (pages < 2) return;
+    const add = (label, p, cls) => {
+        let el;
+        if (cls) { el = document.createElement('span'); el.className = cls; }
+        else {
+            el = document.createElement('a'); el.href = '#';
+            el.onclick = e => { e.preventDefault(); page = p; render(); window.scrollTo(0, 0); };
+        }
+        el.textContent = label;
+        pager.appendChild(el);
+    };
+    add('< Prev', page - 1, page === 1 ? 'off' : null);
+    for (let p = 1; p <= pages; p++) add(p, p, p === page ? 'on' : null);
+    add('Next >', page + 1, page === pages ? 'off' : null);
+}
+
+function setSort(s) {
+    sort = s;
+    document.querySelectorAll('#tabSort a').forEach(a => a.classList.toggle('on', a.dataset.sort === s));
+    document.querySelectorAll('#sideSort li').forEach(li => li.classList.toggle('on', li.firstElementChild.dataset.sort === s));
+    apply();
+}
+document.querySelectorAll('[data-sort]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); setSort(a.dataset.sort); }));
+document.getElementById('searchForm').addEventListener('submit', e => { e.preventDefault(); apply(); });
+</script>
+</body>
+</html>
