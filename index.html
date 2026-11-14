@@ -110,6 +110,39 @@ a:hover { text-decoration: underline; }
 #pager span.on { background: #5aa616; border-color: #3f7f0b; color: #fff; font-weight: bold; }
 #pager span.off { color: #bbb; background: #f3f4f5; }
 
+/* featured slider */
+.slider { position: relative; height: 170px; margin: 12px 12px 0; border: 1px solid #b9c0c6; background: #2f3438; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+.slider img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: none; cursor: pointer; }
+.slider img.on { display: block; }
+.slider .cap {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 12px 7px; color: #fff; font-weight: bold; font-size: 13px;
+    background: linear-gradient(transparent, rgba(0,0,0,.75)); pointer-events: none; text-shadow: 0 1px 1px #000;
+}
+.slider .dots { position: absolute; right: 8px; bottom: 7px; display: flex; gap: 4px; }
+.slider .dots button {
+    width: 18px; height: 18px; padding: 0; border: 1px solid #fff; border-radius: 2px; cursor: pointer;
+    background: rgba(0,0,0,.45); color: #fff; font: bold 10px Tahoma, Verdana, Arial, sans-serif;
+}
+.slider .dots button.on { background: #5aa616; border-color: #bfe58f; }
+
+/* preview window */
+#lb { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.72); display: flex; align-items: center; justify-content: center; padding: 10px; }
+#lb[hidden] { display: none; }
+.win { background: #fff; border: 1px solid #2f3438; box-shadow: 0 6px 24px rgba(0,0,0,.6); max-width: 440px; width: 100%; }
+.win .tb {
+    display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; color: #fff; font-weight: bold;
+    background: linear-gradient(#7cc231, #559f13); border-bottom: 1px solid #3f7f0b; text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+}
+.win .tb button { border: 0; background: none; color: #fff; font: bold 18px/1 Arial, sans-serif; cursor: pointer; padding: 0 2px; }
+.win .pv { background: #eef0f2; padding: 8px; text-align: center; }
+.win .pv img { max-width: 100%; max-height: 68vh; display: inline-block; border: 1px solid #c9ced2; background: #fff; }
+.win .ft { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 8px 10px; background: #f7f8f9; border-top: 1px solid #e1e4e7; }
+.win .ft .btn { cursor: pointer; font: bold 12px Tahoma, Verdana, Arial, sans-serif; }
+.win .ft .plain { background: linear-gradient(#fff, #e6e9ec); border-color: #b9c0c6; color: #555; text-shadow: none; }
+
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #f7a21b; outline-offset: 1px; }
+.item img { background: #eef0f2; }
+
 #foot { max-width: 960px; margin: 0 auto 20px; padding: 12px 10px; text-align: center; color: #8a9096; font-size: 11px; border-top: 1px solid #cdd2d6; }
 
 @media (max-width: 700px) {
@@ -158,6 +191,11 @@ a:hover { text-decoration: underline; }
 
     <div id="main">
         <div class="crumb"><a href="#">Home</a> &gt; <a href="#">Wallpapers</a> &gt; <span id="crumbCount">All</span></div>
+        <div class="slider" id="slider" hidden>
+            <div id="slides"></div>
+            <div class="cap" id="slideCap"></div>
+            <div class="dots" id="dots"></div>
+        </div>
         <div class="bar">
             <h1>Mobogenie Wallpapers</h1>
             <div class="sort" id="tabSort">
@@ -172,6 +210,19 @@ a:hover { text-decoration: underline; }
 
 <div id="foot">Copyright &copy; 2014 Mobogenie. All rights reserved. &nbsp;|&nbsp; <a href="#">About Us</a> &nbsp;|&nbsp; <a href="#">Terms of Use</a> &nbsp;|&nbsp; <a href="#">Privacy Policy</a></div>
 
+<div id="lb" hidden>
+    <div class="win" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+        <div class="tb"><span id="lbTitle"></span><button id="lbClose" aria-label="Close">&times;</button></div>
+        <div class="pv"><img id="lbImg" alt=""></div>
+        <div class="ft">
+            <button class="btn plain" id="lbPrev">&lt; Prev</button>
+            <span id="lbCount"></span>
+            <button class="btn" id="lbSave">Download</button>
+            <button class="btn plain" id="lbNext">Next &gt;</button>
+        </div>
+    </div>
+</div>
+
 <script>
 const PER_PAGE = 20;
 let all = [], view = [], page = 1, sort = 'hot';
@@ -183,7 +234,7 @@ const q = document.getElementById('q');
 
 fetch('https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json')
     .then(r => { if (!r.ok) throw new Error('Network failure'); return r.json(); })
-    .then(data => { all = data; apply(); })
+    .then(data => { all = data; apply(); buildSlider(); })
     .catch(err => {
         console.error('Error:', err);
         gallery.innerHTML = '';
@@ -213,13 +264,14 @@ function render() {
         return;
     }
     const start = (page - 1) * PER_PAGE;
-    view.slice(start, start + PER_PAGE).forEach(item => {
+    view.slice(start, start + PER_PAGE).forEach((item, n) => {
         const url = item.url.trim(), title = item.title.trim();
         const li = document.createElement('li');
         li.className = 'item';
 
         const a = document.createElement('a');
         a.className = 'pic'; a.href = url; a.target = '_blank';
+        a.addEventListener('click', e => { e.preventDefault(); openBox(start + n, view); });
         const img = document.createElement('img');
         img.src = url; img.alt = title; img.loading = 'lazy';
         a.appendChild(img);
@@ -229,6 +281,7 @@ function render() {
 
         const dl = document.createElement('a');
         dl.className = 'btn'; dl.href = url; dl.target = '_blank'; dl.textContent = 'Download';
+        dl.addEventListener('click', e => { e.preventDefault(); saveFile(item); });
 
         li.append(a, t, dl);
         gallery.appendChild(li);
@@ -263,6 +316,78 @@ function setSort(s) {
 }
 document.querySelectorAll('[data-sort]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); setSort(a.dataset.sort); }));
 document.getElementById('searchForm').addEventListener('submit', e => { e.preventDefault(); apply(); });
+
+/* featured slider */
+let sIdx = 0, sTimer;
+function buildSlider() {
+    const feat = all.slice(0, 5);
+    if (!feat.length) return;
+    const slides = document.getElementById('slides'), dots = document.getElementById('dots');
+    feat.forEach((it, i) => {
+        const img = document.createElement('img');
+        img.src = it.url.trim(); img.alt = it.title.trim();
+        img.addEventListener('click', () => openBox(i, all));
+        slides.appendChild(img);
+        const b = document.createElement('button');
+        b.textContent = i + 1; b.setAttribute('aria-label', 'Show ' + it.title.trim());
+        b.addEventListener('click', () => { showSlide(i); startSlider(); });
+        dots.appendChild(b);
+    });
+    const sl = document.getElementById('slider');
+    sl.hidden = false;
+    sl.addEventListener('mouseenter', () => clearInterval(sTimer));
+    sl.addEventListener('mouseleave', startSlider);
+    showSlide(0);
+    startSlider();
+}
+function showSlide(i) {
+    sIdx = i;
+    document.querySelectorAll('#slides img').forEach((im, k) => im.classList.toggle('on', k === i));
+    document.querySelectorAll('#dots button').forEach((b, k) => b.classList.toggle('on', k === i));
+    document.getElementById('slideCap').textContent = 'Featured: ' + all[i].title.trim();
+}
+function startSlider() {
+    clearInterval(sTimer);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    sTimer = setInterval(() => showSlide((sIdx + 1) % document.querySelectorAll('#slides img').length), 4500);
+}
+
+/* preview window */
+let boxList = [], boxIdx = 0;
+const lb = document.getElementById('lb');
+function openBox(i, list) { boxList = list; boxIdx = i; showBox(); lb.hidden = false; document.getElementById('lbClose').focus(); }
+function closeBox() { lb.hidden = true; document.getElementById('lbImg').src = ''; }
+function stepBox(d) { boxIdx = (boxIdx + d + boxList.length) % boxList.length; showBox(); }
+function showBox() {
+    const it = boxList[boxIdx];
+    const img = document.getElementById('lbImg');
+    img.src = it.url.trim(); img.alt = it.title.trim();
+    document.getElementById('lbTitle').textContent = it.title.trim();
+    document.getElementById('lbCount').textContent = (boxIdx + 1) + ' / ' + boxList.length;
+}
+document.getElementById('lbClose').addEventListener('click', closeBox);
+document.getElementById('lbPrev').addEventListener('click', () => stepBox(-1));
+document.getElementById('lbNext').addEventListener('click', () => stepBox(1));
+document.getElementById('lbSave').addEventListener('click', () => saveFile(boxList[boxIdx]));
+lb.addEventListener('click', e => { if (e.target === lb) closeBox(); });
+document.addEventListener('keydown', e => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') closeBox();
+    else if (e.key === 'ArrowLeft') stepBox(-1);
+    else if (e.key === 'ArrowRight') stepBox(1);
+});
+
+/* real download (falls back to opening the image) */
+function saveFile(item) {
+    const url = item.url.trim();
+    const name = (item.title.trim().replace(/[^\w\- ]+/g, '') || 'wallpaper') + '.jpg';
+    fetch(url).then(r => { if (!r.ok) throw new Error('bad response'); return r.blob(); }).then(blob => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob); a.download = name;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }).catch(() => window.open(url, '_blank'));
+}
 </script>
 </body>
 </html>
