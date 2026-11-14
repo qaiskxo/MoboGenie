@@ -68,7 +68,7 @@
     <div id="gallery" class="gallery-grid"></div>
 
     <script>
-        // Fetches your verified JSON database file directly from your Wallpaper folder
+        // Fetches directly from your raw GitHub JSON URL to prevent connection blocks
         fetch('https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json')
             .then(response => {
                 if (!response.ok) {
@@ -80,22 +80,20 @@
                 const gallery = document.getElementById('gallery');
                 const loadingText = document.getElementById('loading-text');
                 
+                // Hide the loading message
                 loadingText.style.display = 'none';
 
-                // Loops through the exact image URL data array
+                // Loop through your 38 live wallpaper assets
                 data.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'card';
 
-                    // Trim any accidental leading spaces from the URL string
-                    const cleanUrl = item.url.trim();
-
                     card.innerHTML = `
-                        <a href="${cleanUrl}" target="_blank">
-                            <img src="${cleanUrl}" alt="${item.title.trim()}" loading="lazy">
+                        <a href="${item.url}" target="_blank">
+                            <img src="${item.url}" alt="${item.title}" loading="lazy">
                         </a>
                         <div class="card-details">
-                            <h3 class="card-title">${item.title.trim()}</h3>
+                            <h3 class="card-title">${item.title}</h3>
                         </div>
                     `;
                     gallery.appendChild(card);
