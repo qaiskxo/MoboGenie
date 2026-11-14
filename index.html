@@ -156,8 +156,6 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 </head>
 <body>
 
-<div id="top"><div class="in"><a href="#">Sign in</a><a href="#">Help</a><a href="#">English</a></div></div>
-
 <div id="head"><div class="in">
     <a class="logo" href="#">Mobogenie<small>Your Android Genie</small></a>
     <form class="search" id="searchForm">
@@ -167,12 +165,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 </div></div>
 
 <div id="nav"><ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Apps</a></li>
-    <li><a href="#">Games</a></li>
     <li class="on"><a href="#">Wallpapers</a></li>
-    <li><a href="#">Ringtones</a></li>
-    <li><a href="#">Videos</a></li>
 </ul></div>
 
 <div id="page">
@@ -185,12 +178,16 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
             </ul>
         </div>
         <div class="box">
+            <h3>Categories</h3>
+            <ul id="sideCat"></ul>
+        </div>
+        <div class="box">
             <div class="promo"><b>Get Mobogenie</b>Free apps, games and wallpapers for your phone.<br><br><a class="btn" href="#">Download</a></div>
         </div>
     </div>
 
     <div id="main">
-        <div class="crumb"><a href="#">Home</a> &gt; <a href="#">Wallpapers</a> &gt; <span id="crumbCount">All</span></div>
+        <div class="crumb"><a href="#">Wallpapers</a> &gt; <span id="crumbCount">All</span></div>
         <div class="slider" id="slider" hidden>
             <div id="slides"></div>
             <div class="cap" id="slideCap"></div>
@@ -225,16 +222,26 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 
 <script>
 const PER_PAGE = 20;
-let all = [], view = [], page = 1, sort = 'hot';
+const SOURCES = [
+    'https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json',
+    'https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/funny/index.json'
+];
+let all = [], view = [], page = 1, sort = 'hot', cat = 'all';
 
 const gallery = document.getElementById('gallery');
 const pager = document.getElementById('pager');
 const crumbCount = document.getElementById('crumbCount');
 const q = document.getElementById('q');
 
-fetch('https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpaper/index.json')
-    .then(r => { if (!r.ok) throw new Error('Network failure'); return r.json(); })
-    .then(data => { all = data; apply(); buildSlider(); })
+Promise.all(SOURCES.map(u =>
+    fetch(u).then(r => { if (!r.ok) throw new Error('Network failure'); return r.json(); })
+        .catch(err => { console.error('Error:', u, err); return []; })
+))
+    .then(lists => {
+        all = [].concat(...lists);
+        if (!all.length) throw new Error('No wallpapers loaded');
+        buildCats(); apply(); buildSlider();
+    })
     .catch(err => {
         console.error('Error:', err);
         gallery.innerHTML = '';
@@ -246,7 +253,7 @@ fetch('https://raw.githubusercontent.com/qaiskxo/images/refs/heads/main/Wallpape
 
 function apply() {
     const term = q.value.trim().toLowerCase();
-    view = all.filter(i => !term || i.title.toLowerCase().includes(term));
+    view = all.filter(i => (cat === 'all' || i.category === cat) && (!term || i.title.toLowerCase().includes(term)));
     if (sort === 'new') view = view.slice().reverse();
     page = 1;
     render();
@@ -254,7 +261,7 @@ function apply() {
 
 function render() {
     gallery.innerHTML = '';
-    crumbCount.textContent = view.length + ' wallpapers';
+    crumbCount.textContent = (cat === 'all' ? 'All' : cat) + ' (' + view.length + ')';
     if (!view.length) {
         const li = document.createElement('li');
         li.className = 'msg';
@@ -306,6 +313,24 @@ function renderPager() {
     add('< Prev', page - 1, page === 1 ? 'off' : null);
     for (let p = 1; p <= pages; p++) add(p, p, p === page ? 'on' : null);
     add('Next >', page + 1, page === pages ? 'off' : null);
+}
+
+function buildCats() {
+    const ul = document.getElementById('sideCat');
+    const names = ['all'].concat([...new Set(all.map(i => i.category))]);
+    names.forEach(name => {
+        const count = name === 'all' ? all.length : all.filter(i => i.category === name).length;
+        const li = document.createElement('li');
+        if (name === cat) li.className = 'on';
+        const a = document.createElement('a');
+        a.href = '#'; a.textContent = (name === 'all' ? 'All' : name) + ' (' + count + ')';
+        a.addEventListener('click', e => {
+            e.preventDefault(); cat = name;
+            ul.querySelectorAll('li').forEach(x => x.classList.toggle('on', x === li));
+            apply();
+        });
+        li.appendChild(a); ul.appendChild(li);
+    });
 }
 
 function setSort(s) {
