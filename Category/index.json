@@ -1,1 +1,30 @@
-
+[
+  {
+    "id": "abstract",
+    "name": "Abstract",
+    "description": "Stylized shapes, artistic patterns, and visual textures.",
+    "thumbnail": "https://raw.githubusercontent.com/qaiskxo/MoboGenie/refs/heads/main/Category/Abstract%20art.jpg",
+    "dataUrl": "https://raw.githubusercontent.com/qaiskxo/MoboGenie/refs/heads/main/Category/Abstract/index.json"
+  },
+  {
+    "id": "animals",
+    "name": "Animals",
+    "description": "Wildlife, pets, birds, and creatures from nature.",
+    "thumbnail": "https://raw.githubusercontent.com/qaiskxo/MoboGenie/refs/heads/main/Category/Animal.jpg",
+    "dataUrl": "https://raw.githubusercontent.com/qaiskxo/MoboGenie/refs/heads/main/Category/Animals/index.json"
+  },
+  {
+    "id": "funny",
+    "name": "Funny",
+    "description": "Humorous moments, quirky faces, and lighthearted* picks.",
+    "thumbnail": "https://raw.githubusercontent.com/qaiskxo/MoboGenie/refs/heads/main/Category/Funny.jpg",
+    "dataUrl": "https://raw.githubusercontent.com/qaiskxo/MoboGenie/refs/heads/main/Category/Funny/index.json"
+  },
+  {
+    "id": "vehicles",
+    "name": "Vehicles",
+    "description": "Cars, bikes, and moving machines across road and sea.",
+    "thumbnail": "https://raw.githubusercontent.com/qaiskxo/MoboGenie/refs/heads/main/Category/Vechicle.jpg",
+    "dataUrl": "https://raw.githubusercontent.com/qaiskxo/MoboGenie/refs/heads/main/Category/Vechicles/index.json"
+  }
+]
